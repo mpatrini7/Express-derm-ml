@@ -1,0 +1,71 @@
+schema_version: 1
+dataset:
+  id: isic-2019-challenge-patient-id-subset
+  version: isic-2019-challenge-training-api-snapshot-2026-08-13
+  expected_api_records: 25331
+  expected_subset_records: 417
+  expected_patients: 369
+  expected_melanoma: 77
+  source_url: https://challenge.isic-archive.com/data/#2019
+  archive_url: https://isic-archive.s3.amazonaws.com/challenges/2019/ISIC_2019_Training_Input.zip
+  archive_collection_id: 65
+  license: CC-0
+  license_url: https://creativecommons.org/publicdomain/zero/1.0/
+  attribution: Anonymous. ISIC 2019 Challenge Training subset, ISIC Archive.
+sources:
+  ground_truth:
+    filename: ISIC_2019_Training_GroundTruth.csv
+    sha256: aa88e9638fe4df9ef330dc4ba22fa4bd475c44af692fffb870c73091ab25cdcd
+  challenge_metadata:
+    filename: ISIC_2019_Training_Metadata.csv
+    sha256: d93994a8ed201d474de9a7af7e17ec30929cbc4a5220659ecbde17cbe83e9316
+  archive_metadata:
+    filename: ISIC_2019_Archive_Metadata_2026-08-13.csv
+    sha256: d83da42ff34b81e7304253a49fd35b231337881e71742485df6b744b2dd0e2d7
+  archive_metadata_receipt:
+    filename: ISIC_2019_Archive_Metadata_2026-08-13.receipt.json
+    sha256: 9362d8bfe2baca0114ea2327845aaf7de5b6f2d7dc71886f90ce18cbdf83c57e
+columns:
+  image: image_name
+  group: patient_id
+  patient: patient_id
+  lesion: lesion_id
+  diagnosis: diagnosis_class
+label_mapping:
+  version: isic-2019-melanoma-vs-all-v1
+  task: binary_melanoma_attention
+  source_column: diagnosis_class
+  values:
+    mel:
+      target: 1
+      label: melanoma_attention_positive
+    nv:
+      target: 0
+      label: melanoma_attention_negative
+    bcc:
+      target: 0
+      label: melanoma_attention_negative
+    ak:
+      target: 0
+      label: melanoma_attention_negative
+    bkl:
+      target: 0
+      label: melanoma_attention_negative
+    df:
+      target: 0
+      label: melanoma_attention_negative
+    vasc:
+      target: 0
+      label: melanoma_attention_negative
+    scc:
+      target: 0
+      label: melanoma_attention_negative
+integrity:
+  exact_duplicate_policy: block
+  perceptual_hash:
+    algorithm: phash
+    implementation: ImageHash
+    implementation_version: 4.3.2
+    hash_size: 16
+    highfreq_factor: 4
+  near_duplicate_hamming_threshold: 16

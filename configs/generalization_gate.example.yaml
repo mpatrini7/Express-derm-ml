@@ -1,0 +1,53 @@
+schema_version: 1
+candidate:
+  model_version: candidate-version
+  checkpoint_sha256: 0000000000000000000000000000000000000000000000000000000000000000
+  calibration_sha256: 0000000000000000000000000000000000000000000000000000000000000000
+  frozen_high_threshold: 0.5
+  training_source_ids:
+    - training-source-a
+datasets:
+  - id: source-a-frozen-test
+    source_id: training-source-a
+    modality: dermoscopic
+    evaluation_protocol: within_source_test
+    training_authorized: false
+    predictions_path: /path/to/predictions_test.npz
+    predictions_sha256: 0000000000000000000000000000000000000000000000000000000000000000
+    probability_key: calibrated_probabilities
+    target_key: targets
+    record_id_key: image_names
+    group_lookup:
+      manifest_path: /path/to/frozen-run/manifest.csv
+      manifest_file_sha256: 0000000000000000000000000000000000000000000000000000000000000000
+      record_id_column: image_name
+      group_id_column: group_id
+      target_column: target
+  - id: source-b-leave-one-source-out
+    source_id: external-source-b
+    modality: dermoscopic
+    evaluation_protocol: leave_one_source_out
+    training_authorized: false
+    predictions_path: /path/to/external_predictions.npz
+    predictions_sha256: 0000000000000000000000000000000000000000000000000000000000000000
+    probability_key: calibrated_probabilities
+    target_key: melanoma_targets
+    record_id_key: image_names
+    group_id_key: lesion_ids
+bootstrap:
+  samples: 2000
+  confidence_level: 0.95
+  seed: 2026
+  ece_bins: 10
+research_gate:
+  minimum_datasets: 2
+  minimum_leave_one_source_out_datasets: 1
+  minimum_worst_source:
+    roc_auc: 0.70
+    pr_auc_lift: 2.0
+    sensitivity: 0.70
+    specificity: 0.70
+    precision: 0.10
+  maximum_source_gap:
+    sensitivity: 0.20
+    specificity: 0.20

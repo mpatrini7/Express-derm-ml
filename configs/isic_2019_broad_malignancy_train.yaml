@@ -1,0 +1,71 @@
+schema_version: 1
+dataset:
+  id: isic-2019-bcc-ak-scc-train-only
+  version: isic-2019-challenge-training-api-snapshot-2026-08-13
+  expected_images: 4818
+  source_url: https://challenge.isic-archive.com/data/#2019
+  license: CC-BY-NC-4.0
+  license_url: https://creativecommons.org/licenses/by-nc/4.0/
+  attribution: ISIC 2019 Challenge Training, ISIC Archive.
+  patient_identifier_status: unavailable_for_selected_records
+  split_policy: train_only
+sources:
+  ground_truth:
+    filename: ISIC_2019_Training_GroundTruth.csv
+    sha256: aa88e9638fe4df9ef330dc4ba22fa4bd475c44af692fffb870c73091ab25cdcd
+  challenge_metadata:
+    filename: ISIC_2019_Training_Metadata.csv
+    sha256: d93994a8ed201d474de9a7af7e17ec30929cbc4a5220659ecbde17cbe83e9316
+  archive_metadata:
+    filename: ISIC_2019_Archive_Metadata_2026-08-13.csv
+    sha256: d83da42ff34b81e7304253a49fd35b231337881e71742485df6b744b2dd0e2d7
+columns:
+  image: image_name
+  group: group_id
+  patient: patient_id
+  patient_identifier_status: patient_identifier_status
+  lesion: lesion_id
+  diagnosis: diagnosis_class
+  source_url: source_url
+  license: license
+  license_url: license_url
+  attribution: attribution
+label_mapping:
+  version: isic-2019-broad-malignancy-attention-v1
+  task: binary_broad_malignancy_attention
+  source_column: diagnosis_class
+  values:
+    mel:
+      target: 1
+      label: broad_malignancy_attention_positive
+    bcc:
+      target: 1
+      label: broad_malignancy_attention_positive
+    ak:
+      target: 1
+      label: broad_malignancy_attention_positive
+    scc:
+      target: 1
+      label: broad_malignancy_attention_positive
+    nv:
+      target: 0
+      label: broad_malignancy_attention_negative
+    bkl:
+      target: 0
+      label: broad_malignancy_attention_negative
+    df:
+      target: 0
+      label: broad_malignancy_attention_negative
+    vasc:
+      target: 0
+      label: broad_malignancy_attention_negative
+integrity:
+  exact_duplicate_policy: exclude_within_group_and_label
+  cross_group_near_duplicate_policy: allow_train_only_reviewed_candidates
+  perceptual_hash:
+    algorithm: phash
+    implementation: ImageHash
+    implementation_version: 4.3.2
+    hash_size: 16
+    highfreq_factor: 4
+  near_duplicate_hamming_threshold: 16

@@ -1,0 +1,15 @@
+components:
+  - name: histopath_specialist_v15
+    run_dir: runs.nosync/efficientnet_b0_224_mps_v15_histopath_source_balanced_opencv
+  - name: msk1_generalist_v18
+    run_dir: runs.nosync/efficientnet_b2_224_mps_v18_msk1_hard_negative_refinement_opencv
+selection:
+  split: validation
+  metric: pr_auc
+  generalist_name: msk1_generalist_v18
+  grid_step: 0.05
+inference:
+  device: auto
+  batch_size: 32
+  num_workers: 2
+  show_progress: false

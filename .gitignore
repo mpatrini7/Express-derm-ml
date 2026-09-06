@@ -1,0 +1,17 @@
+.DS_Store
+.pytest_cache/
+:memory:.ses
+__pycache__/
+*.pyc
+
+.venv*/
+venv*/
+
+data/
+artifacts/
+runs/
+runs.nosync/
+models/
+
+cpp/ai_worker/build/
+*.engine

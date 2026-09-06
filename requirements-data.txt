@@ -1,0 +1,9 @@
+pandas>=2.0
+numpy>=1.26
+scikit-learn>=1.4
+scipy>=1.10
+Pillow>=10
+opencv-python-headless>=4.10,<5
+PyYAML>=6
+ImageHash==4.3.2
+certifi>=2024.2

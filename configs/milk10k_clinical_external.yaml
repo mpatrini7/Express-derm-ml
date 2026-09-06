@@ -1,0 +1,42 @@
+schema_version: 1
+dataset:
+  id: milk10k-training-clinical-closeup-external
+  version: milk10k-training-2025-v1
+  expected_metadata_rows: 10480
+  expected_supplement_rows: 10480
+  expected_lesions: 5240
+  evaluation_image_type: "clinical: close-up"
+  source_url: https://challenge.isic-archive.com/data/#milk10k
+  license: CC-BY-NC-4.0
+  license_url: https://creativecommons.org/licenses/by-nc/4.0/
+  attribution: MILK study team. MILK10k. ISIC Archive, 2025, doi:10.34970/648456.
+  patient_identifier_status: unavailable_in_public_challenge_package
+sources:
+  archive:
+    filename: MILK10k_Training_Input.zip
+    url: https://isic-archive.s3.amazonaws.com/challenges/milk10k/MILK10k_Training_Input.zip
+    sha256: f4e0a8643965438be4a432b2c6bc987a7fcfa2c0bc36a9e3ece01a2f52c9cb29
+  metadata:
+    filename: MILK10k_Training_Metadata.csv
+    url: https://isic-archive.s3.amazonaws.com/challenges/milk10k/MILK10k_Training_Metadata.csv
+    sha256: 081c88f274fe560c679b507f4400cc329edd3e28a53437048092fd860dc1cf1c
+  supplement:
+    filename: MILK10k_Training_Supplement.csv
+    url: https://isic-archive.s3.amazonaws.com/challenges/milk10k/MILK10k_Training_Supplement.csv
+    sha256: 14d12d1b8c13d48e0068d70cfaed884b28691394019fb00339c41063bc749b5e
+  ground_truth:
+    filename: MILK10k_Training_GroundTruth.csv
+    url: https://isic-archive.s3.amazonaws.com/challenges/milk10k/MILK10k_Training_GroundTruth.csv
+    sha256: 82059a9351efbbc74ac028ab221c17a4838dd4ba8cbbaaf79f51ce3a435ea29c
+labels:
+  classes: [AKIEC, BCC, BEN_OTH, BKL, DF, INF, MAL_OTH, MEL, NV, SCCKA, VASC]
+  melanoma_positive: [MEL]
+  broad_malignancy_positive: [AKIEC, BCC, MAL_OTH, MEL, SCCKA]
+integrity:
+  perceptual_hash:
+    algorithm: phash
+    implementation: ImageHash
+    implementation_version: 4.3.2
+    hash_size: 16
+    highfreq_factor: 4
+  near_duplicate_hamming_threshold: 16

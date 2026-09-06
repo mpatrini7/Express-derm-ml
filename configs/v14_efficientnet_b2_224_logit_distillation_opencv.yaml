@@ -1,0 +1,55 @@
+seed: 2026
+model:
+  architecture: efficientnet_b2
+  pretrained: false
+  image_size: 224
+training:
+  device: auto
+  epochs: 24
+  batch_size: 32
+  learning_rate: 0.0001
+  minimum_learning_rate: 0.000004
+  weight_decay: 0.0001
+  num_workers: 2
+  persistent_workers: true
+  early_stopping_patience: 6
+  selection_metric: pr_auc
+  positive_class_weight: none
+  negative_to_positive_ratio_per_epoch: 16
+  scheduler: cosine
+  amp: true
+  show_progress: false
+  cache_validation_images: true
+distillation:
+  target_kind: validation_standardized_ensemble_logit
+  teacher_ensemble_component_set_sha256: 9e2fcef642956ad3a975a00189d4ddf58bdb4dd0d3202a534c32777a5f7c1d62
+  initial_checkpoint_sha256: 7244ccc197dd527e8a0c9c1da2126969f14afb783147c41accbf29b2a8f5576b
+  temperature: 2.0
+  hard_loss_weight: 0.10
+  soft_loss_weight: 0.90
+  soft_loss_kind: logit_mse
+data:
+  image_column: image_path
+  target_column: target
+  split_column: split
+  positive_label: 1
+augmentation:
+  horizontal_flip_probability: 0.5
+  vertical_flip_probability: 0.5
+  rotation_degrees: 180
+calibration:
+  minimum_sensitivity: 0.90
+  minimum_specificity: 0.90
+  ece_bins: 10
+  minimum_scale: 0.05
+  maximum_scale: 20.0
+  maximum_abs_bias: 20.0
+  development_abstention_margin: 0.0
+evaluation:
+  bootstrap_samples: 2000
+  confidence_level: 0.95
+deployment:
+  input_name: image
+  output_name: logit
+  opset: 18
+  preprocessing: opencv_imread_bgr2rgb_inter_area_stretch_imagenet_nchw_float32_v1

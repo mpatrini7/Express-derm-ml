@@ -1,0 +1,35 @@
+schema_version: 1
+version: dual-center-scale-confirmation-v1
+view_protocol: center_scale3_consensus_v1
+view_names: [original, center_crop_90, center_crop_80]
+
+melanoma_attention:
+  checkpoint_sha256: 3ce3f49ff1f3c8bf25c1f2f40d3e3820f353fbe2055f136cfe851adb571d26e9
+  low_threshold: 0.010975708227031896
+  high_threshold: 0.03316448301885451
+
+broad_malignancy_attention:
+  checkpoint_sha256: 395ccf58289e7ae95df74462a3bc4dcb8fe882c29da5fc8b536bb14dc18af0cf
+  low_threshold: 0.012329338820925153
+  high_threshold: 0.040662419137630045
+  confirmation_threshold: 0.16130259320274545
+  confirmation_selection:
+    split: validation
+    target_specificity: 0.99
+    records: 6532
+    negative_records: 6415
+    positive_records: 117
+    false_positive: 64
+    true_positive: 16
+    specificity: 0.9900233826968043
+    sensitivity: 0.13675213675213677
+    precision: 0.2
+
+combined_outputs:
+  high: high_confirmed
+  uncertain: review
+  low: no_elevated_signal
+
+research_only: true
+thresholds_validated: false
+microscope_validation_pending: true

@@ -1,0 +1,42 @@
+schema_version: 1
+dataset:
+  id: isic-2020-training
+  version: isic-2020-challenge-training-v1
+  archive_collection_id: 70
+  expected_images: 33126
+  source_url: https://challenge.isic-archive.com/data/
+  archive_url: https://api.isic-archive.com/collections/70/
+  duplicate_pairs_url: https://isic-archive.s3.amazonaws.com/challenges/2020/ISIC_2020_Training_Duplicates.csv
+  license: CC-BY-NC-4.0
+  license_url: https://creativecommons.org/licenses/by-nc/4.0/
+  attribution: >-
+    International Skin Imaging Collaboration. SIIM-ISIC 2020 Challenge
+    Dataset. International Skin Imaging Collaboration,
+    doi:10.34970/2020-ds01 (2020).
+columns:
+  image: image_name
+  group: patient_id
+  patient: patient_id
+  lesion: lesion_id
+  diagnosis: diagnosis
+label_mapping:
+  version: isic-2020-benign-malignant-v1
+  task: binary_melanoma_attention
+  source_column: benign_malignant
+  values:
+    benign:
+      target: 0
+      label: curated_negative
+    malignant:
+      target: 1
+      label: curated_positive
+integrity:
+  exact_duplicate_policy: exclude_within_group_and_label
+  perceptual_hash:
+    algorithm: phash
+    implementation: ImageHash
+    implementation_version: 4.3.2
+    hash_size: 16
+    highfreq_factor: 4
+  near_duplicate_hamming_threshold: 16
+  near_duplicate_calibration: docs/ISIC_2020_PHASH_CALIBRATION.md

@@ -1,0 +1,67 @@
+schema_version: 1
+dataset:
+  id: isic-dicm-17k-patient-safe-subset
+  version: isic-dicm-17k-official-snapshot-2026-08-13
+  expected_source_records: 17060
+  expected_subset_records: 2660
+  expected_patients: 1481
+  expected_melanoma: 1192
+  expected_curated_records: 2586
+  expected_curated_patients: 1455
+  expected_curated_melanoma: 1132
+  expected_license_counts:
+    CC-0: 2081
+    CC-BY: 431
+    CC-BY-NC: 148
+  source_url: https://api.isic-archive.com/doi/isic-dicm-17k/
+  archive_url: https://isic-archive.s3.amazonaws.com/dois/10.34970-233480/isic-dicm-17k.zip
+  archive_content_length: 7374407470
+  archive_etag: '"f30c70f835d15f0a3a799fa2f0bd9314-880"'
+  archive_last_modified: Mon, 03 Nov 2025 17:09:20 GMT
+  archive_collection_id: 469
+  doi: 10.34970/233480
+  license: mixed-per-image
+  license_url: https://api.isic-archive.com/doi/isic-dicm-17k/
+  attribution: ISIC-DICM-17K; see per-image attribution in the manifest.
+sources:
+  metadata_url: https://isic-archive.s3.amazonaws.com/dois/10.34970-233480/isic-dicm-17k.csv
+  metadata_sha256: c2610c5c9b3011b0cd874afd3a6d2694b5c819b88a1525b060657ada0b0625a6
+selection:
+  image_type: dermoscopic
+  positive_diagnosis_1: Malignant
+  positive_diagnosis_2: Malignant melanocytic proliferations (Melanoma)
+  negative_diagnosis_1: Benign
+  accepted_confirmation_types:
+    - histopathology
+    - serial imaging showing no change
+    - single image expert consensus
+columns:
+  image: image_name
+  group: patient_id
+  patient: patient_id
+  lesion: lesion_id
+  diagnosis: diagnosis_2
+  source_url: source_url
+  license: copyright_license
+  license_url: license_url
+  attribution: attribution
+label_mapping:
+  version: isic-dicm17k-melanoma-vs-benign-v1
+  task: binary_melanoma_attention
+  source_column: diagnosis_class
+  values:
+    benign:
+      target: 0
+      label: melanoma_attention_negative
+    melanoma:
+      target: 1
+      label: melanoma_attention_positive
+integrity:
+  exact_duplicate_policy: block
+  perceptual_hash:
+    algorithm: phash
+    implementation: ImageHash
+    implementation_version: 4.3.2
+    hash_size: 16
+    highfreq_factor: 4
+  near_duplicate_hamming_threshold: 16
